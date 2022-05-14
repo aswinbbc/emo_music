@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'model/myaudio.dart';
 
 import 'colors.dart';
 
-class PlayerControls extends StatelessWidget {
+class PlayerControls extends StatefulWidget {
+  PlayerControls({Key? key, required this.data}) : super(key: key);
+  final List data;
+
+  @override
+  State<PlayerControls> createState() => _PlayerControlsState();
+}
+
+class _PlayerControlsState extends State<PlayerControls> {
+  var index = 0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,13 +25,17 @@ class PlayerControls extends StatelessWidget {
           // Controls(
           //   icon: Icons.repeat,
           // ),
-          Controls(
-            icon: Icons.skip_previous,
+          PreviousSong(
+              url: index == 0
+                  ? widget.data.last['url']
+                  : widget.data.elementAt(index - 1)['url']),
+          PlayControl(
+            url: widget.data.elementAt(index)['url'],
           ),
-          PlayControl(),
-          Controls(
-            icon: Icons.skip_next,
-          ),
+          NextSong(
+              url: index == (widget.data.length - 1)
+                  ? widget.data.first['url']
+                  : widget.data.elementAt(index + 1)['url']),
           // Controls(
           //   icon: Icons.shuffle,
           // ),
@@ -31,6 +46,9 @@ class PlayerControls extends StatelessWidget {
 }
 
 class PlayControl extends StatelessWidget {
+  const PlayControl({Key? key, required this.url}) : super(key: key);
+  final String url;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<MyAudio>(
@@ -38,7 +56,7 @@ class PlayControl extends StatelessWidget {
         onTap: () {
           myAudioModel.audioState == "Playing"
               ? myAudioModel.pauseAudio()
-              : myAudioModel.playAudio();
+              : myAudioModel.playAudio(url);
         },
         child: Container(
           height: 100,
@@ -98,6 +116,45 @@ class PlayControl extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class NextSong extends StatelessWidget {
+  const NextSong({Key? key, required this.url}) : super(key: key);
+  final String url;
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MyAudio>(
+      builder: (_, myAudioModel, child) => GestureDetector(
+        onTap: () {
+          Fluttertoast.showToast(msg: 'song loading...');
+          myAudioModel.playAudio(url);
+        },
+        child: Controls(
+          icon: Icons.skip_next,
+        ),
+      ),
+    );
+  }
+}
+
+class PreviousSong extends StatelessWidget {
+  PreviousSong({Key? key, required this.url}) : super(key: key);
+
+  final String url;
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MyAudio>(
+      builder: (_, myAudioModel, child) => GestureDetector(
+        onTap: () {
+          Fluttertoast.showToast(msg: 'song loading...');
+          myAudioModel.playAudio(url);
+        },
+        child: Controls(
+          icon: Icons.skip_previous,
         ),
       ),
     );

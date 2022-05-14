@@ -14,14 +14,3 @@ void main() {
     home: ChangeNotifierProvider(create: (_) => MyAudio(), child: HomePage()),
   ));
 }
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Mood(),
-    );
-  }
-}

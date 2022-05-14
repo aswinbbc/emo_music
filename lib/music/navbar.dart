@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 class MyNavigationBar extends StatelessWidget {
-  const MyNavigationBar({Key? key}) : super(key: key);
-
+  const MyNavigationBar({Key? key, required this.clickFunction})
+      : super(key: key);
+  final Function() clickFunction;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,12 +16,7 @@ class MyNavigationBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Mood()),
-              );
-            },
+            onTap: clickFunction,
             child: NavBarItem(
               icon: Icons.camera,
             ),
@@ -32,8 +28,11 @@ class MyNavigationBar extends StatelessWidget {
                 color: darkPrimaryColor,
                 fontWeight: FontWeight.w500),
           ),
-          NavBarItem(
-            icon: Icons.list,
+          // NavBarItem(
+          //   icon: Icons.camera,
+          // )
+          SizedBox(
+            width: 25,
           )
         ],
       ),

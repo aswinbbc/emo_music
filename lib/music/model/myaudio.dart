@@ -31,9 +31,8 @@ class MyAudio extends ChangeNotifier {
     });
   }
 
-  playAudio() {
-    audioPlayer.play(
-        'https://thegrowingdeveloper.org/files/audios/quiet-time.mp3?b4869097e4');
+  playAudio(String url) {
+    audioPlayer.play(url);
   }
 
   pauseAudio() {
