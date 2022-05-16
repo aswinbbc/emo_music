@@ -90,9 +90,8 @@ class _HomePageState extends State<HomePage> {
   List audioData = [
     {
       'image':
-          'https://thegrowingdeveloper.org/thumbs/1000x1000r/audios/quiet-time-photo.jpg',
-      'url':
-          'https://thegrowingdeveloper.org/files/audios/quiet-time.mp3?b4869097e4'
+          'https://i.pinimg.com/originals/de/f7/9a/def79a4e31a4f9b478ad5eb711bad460.jpg',
+      'url': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3'
     },
   ];
 
